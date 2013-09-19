@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+require 'socket'
+
+server = TCPServer.open(ARGV.fetch(0, 25))
+
+loop do
+  client = server.accept
+  client.puts "220 OK"
+
+  str = client.gets
+
+  while str != "DATA\r\n"
+    client.puts "250 OK"
+    str = client.gets
+  end
+
+  client.puts "354 OK"
+
+  res = []
+  str = client.gets
+
+  while str != ".\r\n"
+    res.push(str)
+    str = client.gets
+  end
+
+  puts '---'
+  puts res.join
+  puts '---'
+
+  client.puts "250 OK"
+  client.gets
+  client.puts "221 OK"
+end
