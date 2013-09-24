@@ -3,6 +3,7 @@
 require 'socket'
 
 server = TCPServer.open(ARGV.fetch(0, 25))
+puts "Listening on port #{ARGV.fetch(0, 25)}..."
 
 loop do
   client = server.accept
