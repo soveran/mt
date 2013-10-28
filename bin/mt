@@ -28,7 +28,6 @@ loop do
 
   puts '---'
   puts res.join
-  puts '---'
 
   client.puts "250 OK"
   client.gets
