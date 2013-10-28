@@ -12,6 +12,8 @@ rescue Errno::EACCES
   exit 1
 end
 
+Signal.trap("INT") { exit 0 }
+
 loop do
   client = server.accept
   client.puts "220 OK"
