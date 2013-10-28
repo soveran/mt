@@ -2,8 +2,15 @@
 
 require 'socket'
 
-server = TCPServer.open(ARGV.fetch(0, 25))
-puts "Listening on port #{ARGV.fetch(0, 25)}..."
+port = ARGV.fetch(0, 25)
+
+begin
+  server = TCPServer.open(port)
+  puts "Listening on port #{port}"
+rescue Errno::EACCES
+  puts "Couldn't bind to port #{port}."
+  exit 1
+end
 
 loop do
   client = server.accept
